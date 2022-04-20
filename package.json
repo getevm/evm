@@ -17,6 +17,6 @@
     "inquirer": "^8.2.2"
   },
   "bin": {
-    "evm-node": "./bin/evm"
+    "evm": "./bin/evm"
   }
 }
