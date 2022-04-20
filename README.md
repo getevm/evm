@@ -2,6 +2,15 @@
 
 A tool for developers using Windows which allows you to quickly switch between PHP versions.
 
+- [About](#about)
+- [Prerequisites](#prerequisites)
+- [Installation & Update](#installation-&-Update)
+- [Usage](#Usage)
+- [FAQs](#faqs)
+- [Support](#support)
+
+# About
+
 ### What does this tool do?
 
 - Downloads & installs PHP releases for Windows
