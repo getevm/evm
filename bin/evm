@@ -6,13 +6,14 @@ const File = require('../src/Filesystem/File');
 const Output = require('../src/Console/Output');
 const InstallHandler = require('../src/Handlers/InstallHandler');
 const UseHandler = require('../src/Handlers/UseHandler');
+const LsHandler = require("../src/Handlers/LsHandler");
 const SyncHandler = require("../src/Handlers/SyncHandler");
 
 const program = new Command();
 
 program.name('Environment Version Manager')
     .description('Your one stop shop environment version manager.')
-    .version('0.0.18');
+    .version('0.0.19');
 
 program.command('install <version>')
     .description('Install a PHP version')
@@ -50,6 +51,12 @@ program.command('use <version>')
             archType,
             threadSafe
         }).execute();
+    });
+
+program.command('ls')
+    .description(`List PHP versions installed with evm`)
+    .action(async () => {
+        await new LsHandler().execute();
     });
 
 program.command('sync')
