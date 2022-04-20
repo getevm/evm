@@ -139,7 +139,7 @@ class InstallHandler {
                         {
                             type: 'checkbox',
                             name: 'extensions',
-                            message: 'Do wish to enable extensions?',
+                            message: 'Do want to enable extensions now?',
                             choices: extensionList,
                             loop: false
                         }
@@ -163,13 +163,12 @@ class InstallHandler {
                         Output.warning(`No extensions selected. Skipping.`);
                     }
                 } catch (e) {
-
+                    Output.warning('Unable to enable extensions. Skipping.');
                 }
             } else {
                 Output.warning('Unable to find extensions. Skipping.');
             }
         }
-
 
     }
 

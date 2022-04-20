@@ -56,9 +56,6 @@ class UseHandler {
                 logs.oldPath = path;
                 logs.newPath = newPath;
 
-                console.log(newPath);
-                console.log(newPath.length);
-
                 if (newPath.length > 1024) {
                     Output.error([
                         `Unable to set the path variable as the character limit has been reached. This is a restriction on Windows.`,

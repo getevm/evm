@@ -9,11 +9,11 @@ const UseHandler = require('../src/Handlers/UseHandler');
 
 const program = new Command();
 
-program.name('PHP Environment Version Manager')
-    .description('')
-    .version('1.0.0');
+program.name('Environment Version Manager')
+    .description('Your one stop shop environment version manager.')
+    .version('0.0.14');
 
-program.command('install <version>')
+program.command('install <version>', 'Install a PHP version')
     .option('-ts, --thread-safe', 'Get a thread safe release (default nts)', false)
     .option('-at, --arch-type <type>', 'Get a release targeting an architecture type (x64/x86)', process.arch)
     .action((version, {threadSafe, archType}) => {
@@ -31,7 +31,7 @@ program.command('install <version>')
         });
     });
 
-program.command('use <version>')
+program.command('use <version>', 'Activate a PHP version')
     .option('-ts, --thread-safe', 'Use a thread safe release (default nts)', false)
     .option('-at, --arch-type <type>', 'Use a release targeting an architecture type (x64/x86)', process.arch)
     .action((version, {threadSafe, archType}) => {
@@ -47,6 +47,16 @@ program.command('use <version>')
             archType,
             threadSafe
         });
+    });
+
+program.command('ls', 'List PHP releases installed by evm')
+    .action(() => {
+
+    });
+
+program.command('sync', 'Sync version file with server')
+    .action(() => {
+
     });
 
 program.parse(process.argv);
