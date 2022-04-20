@@ -4,7 +4,7 @@ A tool for developers using Windows which allows you to quickly switch between P
 
 - [About](#about)
 - [Prerequisites](#prerequisites)
-- [Installation & Update](#installation-&-Update)
+- [Installation & Update](#installation--Update)
 - [Usage](#Usage)
 - [FAQs](#faqs)
 - [Support](#support)
