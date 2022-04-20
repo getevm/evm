@@ -3,4 +3,4 @@
 set KeyName=Path
 set NewPath=%1
 
-setx /M "%KeyName%" "%NewPath%";
+setx /M Path "%1";
