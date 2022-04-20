@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+
+const {Command} = require('commander');
+
+const File = require('../src/Filesystem/File');
+const Output = require('../src/Console/Output');
+const InstallHandler = require('../src/Handlers/InstallHandler');
+const UseHandler = require('../src/Handlers/UseHandler');
+
+const program = new Command();
+
+program.name('PHP Environment Version Manager')
+    .description('')
+    .version('1.0.0');
+
+program.command('install <version>')
+    .option('-ts, --thread-safe', 'Get a thread safe release (default nts)', false)
+    .option('-at, --arch-type <type>', 'Get a release targeting an architecture type (x64/x86)', process.arch)
+    .action((version, {threadSafe, archType}) => {
+        archType = archType.substring(0, 1) === 'x' ? archType : `x${archType}`;
+
+        if (!['x86', 'x64'].includes(archType)) {
+            Output.error('Invalid archType passed.');
+            return;
+        }
+
+        new InstallHandler({
+            version,
+            archType,
+            threadSafe
+        });
+    });
+
+program.command('use <version>')
+    .option('-ts, --thread-safe', 'Use a thread safe release (default nts)', false)
+    .option('-at, --arch-type <type>', 'Use a release targeting an architecture type (x64/x86)', process.arch)
+    .action((version, {threadSafe, archType}) => {
+        archType = archType.substring(0, 1) === 'x' ? archType : `x${archType}`;
+
+        if (!['x86', 'x64'].includes(archType)) {
+            Output.error('Invalid archType passed.');
+            return;
+        }
+
+        new UseHandler({
+            version,
+            archType,
+            threadSafe
+        });
+    });
+
+program.parse(process.argv);
+
+File.createPrerequisiteDirectories();

@@ -1,10 +1,13 @@
 {
   "name": "@getevm/evm",
-  "version": "1.0.0",
-  "description": "evm-nodejs",
-  "main": "app.js",
-  "author": {
-    "name": ""
+  "version": "0.0.1",
+  "description": "An environment version manager.",
+  "author": "Script47 <Script47@hotmail.com>",
+  "homepage": "https://getevm.github.io/",
+  "main": "./bin/evm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/getevm/evm/issues"
   },
   "scripts": {},
   "dependencies": {
