@@ -1,11 +1,13 @@
 const fs = require('fs');
 
 const System = require('../Helpers/System');
+const axios = require("axios");
 
 class File {
     static createPrerequisiteDirectories() {
         const dirs = [
-            this.getPathToLogs()
+            this.getPathToLogs(),
+            this.getPathToLocalVersionFile(false)
         ];
 
         for (const dir of dirs) {
@@ -17,6 +19,12 @@ class File {
                 recursive: true
             });
         }
+    }
+
+    static getPathToLocalVersionFile(includeFileName = true) {
+        return includeFileName ?
+            `${__dirname}${System.getPathSeparator()}..${System.getPathSeparator()}..${System.getPathSeparator()}data${System.getPathSeparator()}php.json` :
+            `${__dirname}${System.getPathSeparator()}..${System.getPathSeparator()}..${System.getPathSeparator()}data${System.getPathSeparator()}`;
     }
 
     static getPathToInstallationDir() {
@@ -73,6 +81,20 @@ class File {
             if (iterations === 0) {
                 fs.rmdirSync(path);
             }
+        }
+    }
+
+    static async download(url, opts = {}) {
+        try {
+            opts.responseType = opts.responseType || 'arraybuffer';
+
+            const response = await axios.get(url, {
+                responseType: opts.responseType
+            });
+
+            return response.data;
+        } catch (e) {
+            return null;
         }
     }
 }

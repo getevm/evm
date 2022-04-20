@@ -1,17 +1,14 @@
 const fs = require('fs');
+
+const File = require('../Filesystem/File');
 const System = require('./System');
-const axios = require('axios');
 
 class CACert {
     static async download() {
         const url = `https://curl.haxx.se/ca/cacert.pem`;
 
         try {
-            const response = await axios.get(url, {
-                responseType: 'arraybuffer'
-            });
-
-            return response.data;
+            return await File.download(url);
         } catch (e) {
             return null;
         }

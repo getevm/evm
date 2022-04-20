@@ -1,9 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const axios = require('axios');
 const inquirer = require('inquirer');
 
+const SyncHandler = require("./SyncHandler");
+const UseHandler = require('../Handlers/UseHandler');
 const Output = require('../Console/Output');
 const File = require('../Filesystem/File');
 const System = require('../Helpers/System');
@@ -14,8 +15,6 @@ const CACert = require('../Helpers/CACert');
 class InstallHandler {
     constructor(config) {
         this.config = config;
-
-        this.execute();
     }
 
     async execute() {
@@ -26,6 +25,8 @@ class InstallHandler {
             `Thread Safe: ${this.config.threadSafe ? 'Yes' : 'No'}`,
             '-----------------------------------------------------'
         ]);
+
+        await new SyncHandler().execute();
 
         Output.std('Attempting to find requested release...');
 
@@ -38,7 +39,7 @@ class InstallHandler {
 
         Output.std(`Release found. Attempting to download it from ${releaseUrl}`);
 
-        const release = await this.download(releaseUrl);
+        const release = await File.download(releaseUrl);
 
         if (!release) {
             Output.error('Failed to download release');
@@ -170,6 +171,23 @@ class InstallHandler {
             }
         }
 
+        try {
+            const {activate} = await inquirer.prompt([
+                {
+                    type: 'confirm',
+                    name: 'activate',
+                    message: `Do want to activate this release (v${this.config.version}) now?`,
+                }
+            ]);
+
+            if (!activate) {
+                return;
+            }
+
+            await new UseHandler(this.config).execute();
+        } catch (e) {
+            Output.warning('Unable to activate release.');
+        }
     }
 
     buildReleaseDirName() {
@@ -179,18 +197,6 @@ class InstallHandler {
         name += `-${System.getOSType()}`;
 
         return name;
-    }
-
-    async download(release) {
-        try {
-            const response = await axios.get(release, {
-                responseType: 'arraybuffer'
-            });
-
-            return response.data;
-        } catch (e) {
-            return null;
-        }
     }
 
     getMetadataFromReleaseName(release) {
@@ -233,13 +239,9 @@ class InstallHandler {
         }
     }
 
-    getReleasesFilePath() {
-        return `${__dirname}${System.getPathSeparator()}..${System.getPathSeparator()}..${System.getPathSeparator()}data${System.getPathSeparator()}php.json`;
-    }
-
     getReleaseUrl() {
         try {
-            const releases = JSON.parse(fs.readFileSync(this.getReleasesFilePath(), 'utf8'));
+            const releases = JSON.parse(fs.readFileSync(`${File.getPathToLocalVersionFile()}`, 'utf8'));
 
             switch (System.getOSType()) {
                 case 'nt':

@@ -6,17 +6,19 @@ const File = require('../src/Filesystem/File');
 const Output = require('../src/Console/Output');
 const InstallHandler = require('../src/Handlers/InstallHandler');
 const UseHandler = require('../src/Handlers/UseHandler');
+const SyncHandler = require("../src/Handlers/SyncHandler");
 
 const program = new Command();
 
 program.name('Environment Version Manager')
     .description('Your one stop shop environment version manager.')
-    .version('0.0.14');
+    .version('0.0.18');
 
-program.command('install <version>', 'Install a PHP version')
+program.command('install <version>')
+    .description('Install a PHP version')
     .option('-ts, --thread-safe', 'Get a thread safe release (default nts)', false)
     .option('-at, --arch-type <type>', 'Get a release targeting an architecture type (x64/x86)', process.arch)
-    .action((version, {threadSafe, archType}) => {
+    .action(async (version, {threadSafe, archType}) => {
         archType = archType.substring(0, 1) === 'x' ? archType : `x${archType}`;
 
         if (!['x86', 'x64'].includes(archType)) {
@@ -24,17 +26,18 @@ program.command('install <version>', 'Install a PHP version')
             return;
         }
 
-        new InstallHandler({
+        await new InstallHandler({
             version,
             archType,
             threadSafe
-        });
+        }).execute();
     });
 
-program.command('use <version>', 'Activate a PHP version')
+program.command('use <version>')
+    .description(`Activate a PHP version`)
     .option('-ts, --thread-safe', 'Use a thread safe release (default nts)', false)
     .option('-at, --arch-type <type>', 'Use a release targeting an architecture type (x64/x86)', process.arch)
-    .action((version, {threadSafe, archType}) => {
+    .action(async (version, {threadSafe, archType}) => {
         archType = archType.substring(0, 1) === 'x' ? archType : `x${archType}`;
 
         if (!['x86', 'x64'].includes(archType)) {
@@ -42,21 +45,17 @@ program.command('use <version>', 'Activate a PHP version')
             return;
         }
 
-        new UseHandler({
+        await new UseHandler({
             version,
             archType,
             threadSafe
-        });
+        }).execute();
     });
 
-program.command('ls', 'List PHP releases installed by evm')
-    .action(() => {
-
-    });
-
-program.command('sync', 'Sync version file with server')
-    .action(() => {
-
+program.command('sync')
+    .description(`Sync local versions file with remote version file`)
+    .action(async () => {
+        await new SyncHandler().execute();
     });
 
 program.parse(process.argv);

@@ -9,11 +9,9 @@ const Process = require('../Helpers/Process');
 class UseHandler {
     constructor(config) {
         this.config = config;
-
-        this.execute();
     }
 
-    execute() {
+    async execute() {
         const logs = {
             oldPath: null,
             newPath: null,
