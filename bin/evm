@@ -11,9 +11,11 @@ const SyncHandler = require("../src/Handlers/SyncHandler");
 
 const program = new Command();
 
+File.createPrerequisiteDirectories();
+
 program.name('Environment Version Manager')
     .description('Your one stop shop environment version manager.')
-    .version('0.0.20');
+    .version('0.0.22');
 
 program.command('install <version>')
     .description('Install a PHP version')
@@ -66,5 +68,3 @@ program.command('sync')
     });
 
 program.parse(process.argv);
-
-File.createPrerequisiteDirectories();

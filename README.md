@@ -6,7 +6,7 @@ A tool for developers using Windows which allows you to quickly switch between P
 
 - Downloads & installs PHP releases for Windows
     - Allows you to quickly select extensions you wish to enable
-    - Automatically sets certs for curl
+    - Automatically sets certs for cURL
 - Seamlessly switch between PHP versions all from the command line
 
 # Prerequisites
@@ -14,7 +14,7 @@ A tool for developers using Windows which allows you to quickly switch between P
 This tool assumes a couple of things:
 
 1. You have [Node.js](https://nodejs.org/en/download/) installed
-2. You have access to a terminal with administrative privileges. (This is required because evm modifies the PATH variable)
+2. You have access to a terminal with administrative privileges. This is required because evm modifies the PATH variable
 
 # Installation & Update
 
@@ -35,7 +35,7 @@ npm update -g @getevm/evm@latest
 The basic syntax for the command is:
 
 ```bash
-$ evm <cmd> <version> [-ts] [-at=<x86|x64>]
+$ evm <cmd> <version> [-ts] [-at <x86|x64>]
 ```
 
 - The `-ts` flag refers to thead safety. If omitted it will pull a non-thread safe release

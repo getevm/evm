@@ -171,6 +171,11 @@ class InstallHandler {
             }
         }
 
+        Output.success([
+            `Release (v${this.config.version}) has been installed.`,
+            `Installation Path: ${pathToReleaseDir}`
+        ]);
+
         try {
             const {activate} = await inquirer.prompt([
                 {
