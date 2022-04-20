@@ -103,8 +103,8 @@ class UseHandler {
     }
 
     storeLogs(logs) {
-        const fileName = new Date().toISOString().split('T').join().replaceAll('-', '').replaceAll(',', '').replaceAll(':', '').split('.')[0],
-            pathToLogFile = `${File.getPathToLogs()}${System.getPathSeparator()}${this.buildReleaseDirName()}-${fileName}.json`;
+        const fileName = `${this.buildReleaseDirName()}-${~~new Date()}`,
+            pathToLogFile = `${File.getPathToLogs()}${System.getPathSeparator()}${fileName}.json`;
 
         fs.writeFileSync(pathToLogFile, JSON.stringify(logs), {
             encoding: 'utf8'
