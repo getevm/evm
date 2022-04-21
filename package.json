@@ -1,14 +1,15 @@
 {
   "name": "@getevm/evm",
-  "version": "0.0.26",
+  "version": "0.0.30",
   "description": "An environment version manager.",
   "author": "Script47 <Script47@hotmail.com>",
   "homepage": "https://getevm.github.io/",
-  "main": "./bin/evm",
+  "repository": "https://github.com/getevm/evm/",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/getevm/evm/issues"
   },
+  "main": "./bin/evm",
   "scripts": {},
   "dependencies": {
     "axios": "^0.24.0",

@@ -15,7 +15,7 @@ File.createPrerequisiteDirectories();
 
 program.name('Environment Version Manager')
     .description('Your one stop shop environment version manager.')
-    .version('0.0.26');
+    .version('0.0.30');
 
 program.command('install <version>')
     .description('Install a PHP version')

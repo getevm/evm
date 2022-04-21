@@ -13,8 +13,6 @@ If this package has helped you, and you're feeling particularly generous, you ca
 
 # About
 
----
-
 ### What does this tool do?
 
 - Downloads & installs PHP releases for Windows
@@ -24,8 +22,6 @@ If this package has helped you, and you're feeling particularly generous, you ca
 
 # Prerequisites
 
----
-
 This tool assumes a couple of things:
 
 1. You have [Node.js](https://nodejs.org/en/download/) installed
@@ -33,21 +29,13 @@ This tool assumes a couple of things:
 
 # Installation & Update
 
-This package is installed as a global package:
+This package is installed as a global `npm` package:
 
 ```
 npm i -g @getevm/evm@latest
 ```
 
-and from time to time we'll update this package:
-
-```
-npm update -g @getevm/evm@latest
-```
-
 # Usage
-
----
 
 The basic syntax for the command is:
 
@@ -74,8 +62,6 @@ $ evm sync # synchronise the local version file with the remote version file; us
 ```
 
 # FAQs
-
----
 
 ### Why do I need Node.js to download PHP?
 
