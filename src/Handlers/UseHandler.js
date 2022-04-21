@@ -62,11 +62,19 @@ class UseHandler {
                     return;
                 }
 
+                const pathToLogFile = this.storeLogs(logs);
+
+                /*******************************************
+                 * Failed to make log file, for now, abort
+                 * in the future, prompt user and allow
+                 * them to choose
+                 *******************************************/
+                if (!fs.existsSync(pathToLogFile)) {
+                    Output.error(`Failed to create log file which contains backup of the PATH variable. Aborting.`);
+                    return;
+                }
+
                 const {successful, output} = Process.setPath(newPath);
-
-                logs.output = output;
-
-                this.storeLogs(logs);
 
                 if (!successful) {
                     Output.error([
@@ -101,9 +109,11 @@ class UseHandler {
         const fileName = `${this.buildReleaseDirName()}-${~~new Date()}`,
             pathToLogFile = `${File.getPathToLogs()}${System.getPathSeparator()}${fileName}.json`;
 
-        fs.writeFileSync(pathToLogFile, JSON.stringify(logs), {
-            encoding: 'utf8'
-        });
+        // fs.writeFileSync(pathToLogFile, JSON.stringify(logs), {
+        //     encoding: 'utf8'
+        // });
+
+        return pathToLogFile;
     }
 }
 
