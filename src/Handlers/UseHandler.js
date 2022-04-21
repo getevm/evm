@@ -109,9 +109,9 @@ class UseHandler {
         const fileName = `${this.buildReleaseDirName()}-${~~new Date()}`,
             pathToLogFile = `${File.getPathToLogs()}${System.getPathSeparator()}${fileName}.json`;
 
-        // fs.writeFileSync(pathToLogFile, JSON.stringify(logs), {
-        //     encoding: 'utf8'
-        // });
+        fs.writeFileSync(pathToLogFile, JSON.stringify(logs), {
+            encoding: 'utf8'
+        });
 
         return pathToLogFile;
     }
