@@ -1,6 +1,4 @@
 const fs = require('fs');
-const os = require('os');
-const path = require('path');
 const {execSync} = require('child_process');
 
 const System = require('./System');
@@ -20,8 +18,14 @@ class Process {
 
                     return true;
 
-                case '*nix':
-                    break;
+                case 'nix':
+                    execSync(`tar -xf "${pathToArchive}" -C "${pathToOutput}" --strip 1`);
+
+                    if (deleteAfterUnzip) {
+                        fs.unlinkSync(pathToArchive);
+                    }
+
+                    return true;
 
                 default:
                     return null;
@@ -41,7 +45,7 @@ class Process {
 
                     return response.trim();
 
-                case '*nix':
+                case 'nix':
                     break;
 
                 default:
@@ -68,7 +72,7 @@ class Process {
 
                     return response.substring(0, response.lastIndexOf('\\'));
 
-                case '*nix':
+                case 'nix':
                     break;
 
                 default:
@@ -93,10 +97,10 @@ class Process {
                         output: response.replace('SUCCESS:', '').replace('ERROR:', '').trim()
                     };
 
-                case '*nix':
+                case 'nix':
                     return {
                         successful: false,
-                        output: '*nix systems are not currently supported..'
+                        output: 'nix systems are not currently supported..'
                     };
 
                 default:

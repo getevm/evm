@@ -7,7 +7,7 @@ class System {
     }
 
     static getOSType() {
-        return process.platform === 'win32' ? 'nt' : '*nix';
+        return process.platform === 'win32' ? 'nt' : 'nix';
     }
 
     static getHomrDir() {

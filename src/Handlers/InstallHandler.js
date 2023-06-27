@@ -30,7 +30,7 @@ class InstallHandler {
 
         Output.std('Attempting to find requested release...');
 
-        const releaseUrl = this.getReleaseUrl();
+        const releaseUrl = await this.getReleaseUrl();
 
         if (!releaseUrl) {
             Output.error('Failed to find release.')
@@ -236,7 +236,7 @@ class InstallHandler {
                     ext
                 }
 
-            case '*nix':
+            case 'nix':
                 return null;
 
             default:
@@ -244,13 +244,14 @@ class InstallHandler {
         }
     }
 
-    getReleaseUrl() {
+    async getReleaseUrl() {
         try {
             const releases = JSON.parse(fs.readFileSync(`${File.getPathToLocalVersionFile()}`, 'utf8'));
+            let release = null;
 
             switch (System.getOSType()) {
                 case 'nt':
-                    const release = releases['nt'].filter(release => {
+                    release = releases['nt'].filter(release => {
                         const {version, threadSafe, archType, ext} = this.getMetadataFromReleaseName(release);
 
                         return version === this.config.version &&
@@ -264,8 +265,14 @@ class InstallHandler {
 
                     return `https://windows.php.net/downloads/releases/archives/${release}`;
 
-                case '*nix':
-                    break;
+                case 'nix':
+                    release = `https://www.php.net/distributions/php-${this.config.version}.tar.bz2`;
+
+                    if (!await File.download(release)) {
+                        return null;
+                    }
+
+                    return release;
 
                 default:
                     return null;

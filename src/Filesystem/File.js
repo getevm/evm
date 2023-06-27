@@ -35,7 +35,7 @@ class File {
                 path = `${System.getHomrDir().split('\\')[0]}${System.getPathSeparator()}evm`;
                 break;
 
-            case '*nix':
+            case 'nix':
                 path = `${System.getHomrDir()}${System.getPathSeparator()}evm`;
                 break;
 

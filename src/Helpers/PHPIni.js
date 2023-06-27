@@ -86,7 +86,7 @@ class PHPIni {
 
                 return replaced;
 
-            case '*nix':
+            case 'nix':
                 return null;
 
             default:
@@ -110,7 +110,7 @@ class PHPIni {
 
                 return extensions;
 
-            case '*nix':
+            case 'nix':
                 return null;
 
             default:
@@ -150,7 +150,7 @@ class PHPIni {
                 }
                 return outcome;
 
-            case '*nix':
+            case 'nix':
                 return null;
 
             default:

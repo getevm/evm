@@ -87,8 +87,8 @@ class UseHandler {
                 Output.success(`Release has been activated. Refresh any terminals before attempting to use.`);
                 break;
 
-            case '*nix':
-                Output.error('*nix systems are not currently supported.');
+            case 'nix':
+                Output.error('nix systems are not currently supported.');
                 break;
 
             default:
